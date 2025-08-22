@@ -21,9 +21,9 @@ const Detail = (props) => {
       </Button>
       <br />
       <br />
-      <h1>{board.title}</h1>
+      <h1>{"제목1"}</h1>
       <hr />
-      <div>{board.content}</div>
+      <div>{"내용1"}</div>
     </div>
   );
 };

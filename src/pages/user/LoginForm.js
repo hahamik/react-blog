@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const LoginForm = (props) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [user, setUser] = useState({});
 
