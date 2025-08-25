@@ -14,7 +14,7 @@ const LoginForm = (props) => {
   async function submitLogin(e) {
     e.preventDefault();
     try {
-      await axios({
+      let response = await axios({
         method: "POST",
         url: "http://localhost:8080/login",
         data: user, // data에는 바디데이터 // axios는 javascript object를 전달하면 json으로 변환해서 전달함
@@ -22,7 +22,10 @@ const LoginForm = (props) => {
           "Content-Type": "application/json",
         },
       });
-      navigate("/login-form");
+      navigate("/");
+      console.log(response);
+      let jwt = response.headers.authorization;
+      localStorage.setItem("jwt", jwt);
     } catch (error) {
       // console.log(error);
       alert(error.response.data.msg);
