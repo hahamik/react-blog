@@ -23,7 +23,7 @@ const JoinForm = (props) => {
         url: "http://localhost:8080/join",
         data: user, // data에는 바디데이터 // axios는 javascript object를 전달하면 json으로 변환해서 전달함
         headers: {
-          "Content-Type": "application json",
+          "Content-Type": "application/json",
         },
       });
       navigate("/login-form");
@@ -33,7 +33,7 @@ const JoinForm = (props) => {
     }
   }
 
-  // console.log(user);
+  console.log(user);
   return (
     <Form>
       <Form.Group>
