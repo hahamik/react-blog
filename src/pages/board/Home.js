@@ -5,48 +5,65 @@ import BoardItem from "../../components/BoardItem";
 
 const Home = () => {
   const [page, setPage] = useState(0);
-  // const [keyword, setKeyword] = useState("");
-  // const [model, setModel] = useState([]); // 최초의 상태가 대괄호가 되야됨 페이지가 아니라 배열만 관리할거라면 TODO 이거 설명 GPT
+
+  // 입력창 즉시 반영
+  const [inputValue, setInputValue] = useState("");
+
+  // API 호출용 (디바운싱된 값)
+  const [keyword, setKeyword] = useState("");
+
   const [model, setModel] = useState({
     totalPage: undefined,
     number: 0,
     isFirst: true,
     isLast: false,
     boards: [],
-  }); // 페이지도 관리할거라면 중괄호 , 최초페이지 number는 0이여도 되고 undefinded여도 됨됨
+  });
 
+  // inputValue가 변할 때 디바운스로 keyword 업데이트
   useEffect(() => {
-    apiHome();
-  }, [page]);
+    const handler = setTimeout(() => {
+      setKeyword(inputValue); // 0.5초 지나면 keyword 업데이트
+    }, 500);
 
-  async function apiHome() {
-    // let response = await axios.get("http://localhost:8080");
-    let response = await axios({
-      method: "get",
-      url: `http://localhost:8080?page=${page}`,
-    });
-    console.log(response.data.body.boards);
-    setModel(response.data.body);
-  }
+    return () => clearTimeout(handler); // 새로운 입력이 오면 이전 타이머 취소
+  }, [inputValue]);
+
+  // page나 keyword가 변하면 API 호출
+  useEffect(() => {
+    async function apiHome() {
+      let response = await axios.get(
+        `http://localhost:8080?page=${page}&keyword=${keyword}`
+      );
+      setModel(response.data.body);
+    }
+    apiHome();
+  }, [page, keyword]);
 
   function prev() {
-    setPage(page - 1);
+    if (!model.isFirst) {
+      setPage(page - 1);
+    }
   }
   function next() {
-    setPage(page + 1);
+    if (!model.isLast) {
+      setPage(page + 1);
+    }
   }
 
-  function changeValue(e) {}
+  function changeValue(e) {
+    setInputValue(e.target.value); // 입력창은 즉시 반영
+  }
 
   return (
     <div>
-      <Form className="d-flex mb-4" onSubmit={""}>
+      <Form className="d-flex mb-4" onSubmit={(e) => e.preventDefault()}>
         <FormControl
           type="search"
           placeholder="Search"
           className="me-2"
           aria-label="Search"
-          value={""}
+          value={inputValue} // 입력창은 inputValue에 연결
           onChange={changeValue}
         />
       </Form>
