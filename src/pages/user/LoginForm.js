@@ -1,9 +1,12 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import reducer, { login } from "../../store";
 
 const LoginForm = (props) => {
+  const dispatch = useDispatch(); // reducer 호출출
   const navigate = useNavigate();
 
   const [user, setUser] = useState({
@@ -12,6 +15,7 @@ const LoginForm = (props) => {
   });
 
   async function submitLogin(e) {
+    reducer();
     e.preventDefault();
     try {
       let response = await axios({
@@ -26,6 +30,9 @@ const LoginForm = (props) => {
       console.log(response);
       let jwt = response.headers.authorization;
       localStorage.setItem("jwt", jwt);
+
+      // dispatch({ type: "LOGIN", jwt: jwt });
+      dispatch(login(jwt)); // 실행 시켜서 결과를 가져옴 ()가 있으면 바로 실행행
     } catch (error) {
       // console.log(error);
       alert(error.response.data.msg);
