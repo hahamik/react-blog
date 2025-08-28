@@ -12,36 +12,41 @@ const JoinForm = (props) => {
   });
 
   function changeValue(e) {
-    setUser({ ...user, [e.target.name]: e.target.value });
+    setUser({
+      ...user,
+      [e.target.name]: e.target.value,
+    });
   }
 
   async function submitJoin(e) {
     e.preventDefault(); // 새로고침 막기 (action 발동 막기)
+
     try {
       await axios({
         method: "POST",
         url: "http://localhost:8080/join",
-        data: user, // data에는 바디데이터 // axios는 javascript object를 전달하면 json으로 변환해서 전달함
+        data: user, // axios는 javascript object를 전달하면 json으로 변환해서 전달함
         headers: {
           "Content-Type": "application/json",
         },
       });
+
       navigate("/login-form");
     } catch (error) {
-      // console.log(error);
+      //console.log(error);
       alert(error.response.data.msg);
     }
   }
 
-  console.log(user);
+  //console.log(user);
   return (
     <Form>
       <Form.Group>
         <Form.Label>Username</Form.Label>
         <Form.Control
-          type="text"
-          placeholder="Enter username"
-          name="username"
+          type='text'
+          placeholder='Enter username'
+          name='username'
           onChange={changeValue}
         />
       </Form.Group>
@@ -49,9 +54,9 @@ const JoinForm = (props) => {
       <Form.Group>
         <Form.Label>Password</Form.Label>
         <Form.Control
-          type="password"
-          placeholder="Enter password"
-          name="password"
+          type='password'
+          placeholder='Enter password'
+          name='password'
           onChange={changeValue}
         />
       </Form.Group>
@@ -59,13 +64,13 @@ const JoinForm = (props) => {
       <Form.Group>
         <Form.Label>Email</Form.Label>
         <Form.Control
-          type="email"
-          placeholder="Enter email"
-          name="email"
+          type='email'
+          placeholder='Enter email'
+          name='email'
           onChange={changeValue}
         />
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={submitJoin}>
+      <Button variant='primary' type='submit' onClick={submitJoin}>
         회원가입
       </Button>
     </Form>

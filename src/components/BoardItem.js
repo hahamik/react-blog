@@ -5,14 +5,10 @@ import { Link } from "react-router-dom";
 const BoardItem = (props) => {
   const { id, title } = props;
   return (
-    <Card className="mb-2">
+    <Card className='mb-2'>
       <Card.Body>
         <Card.Title>{title}</Card.Title>
-        <Link
-          to={"/board/" + { id }}
-          variant="primary"
-          className="btn btn-primary"
-        >
+        <Link to={`/board/${id}`} variant='primary' className='btn btn-primary'>
           상세보기
         </Link>
       </Card.Body>

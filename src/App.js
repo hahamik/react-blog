@@ -14,12 +14,12 @@ function App() {
       <Header />
       <Container>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/save-form" element={<SaveForm />} />
-          <Route path="/board/:id" element={<Detail />} />
-          <Route path="/login-form" element={<LoginForm />} />
-          <Route path="/join-form" element={<JoinForm />} />
-          <Route path="/update-form/:id" element={<UpdateForm />} />
+          <Route path='/' element={<Home />} />
+          <Route path='/save-form' element={<SaveForm />} />
+          <Route path='/board/:id' element={<Detail />} />
+          <Route path='/login-form' element={<LoginForm />} />
+          <Route path='/join-form' element={<JoinForm />} />
+          <Route path='/update-form/:id' element={<UpdateForm />} />
         </Routes>
       </Container>
     </div>

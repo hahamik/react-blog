@@ -1,4 +1,4 @@
-// 전역 상태 관리 유저저
+// 전역 상태 관리 (유저)
 
 // 1. 초기 상태
 const initialState = {
@@ -6,10 +6,7 @@ const initialState = {
   jwt: "",
 };
 
-// 2. 리듀서(reducer - )
-
-// const reducer(state = initialState, action){};
-
+// 2. 리듀서 (reducer - 줄이는것)
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case "LOGIN":
@@ -35,9 +32,7 @@ export function login(jwt) {
   };
 }
 
-// export function logout(jwt) {
 export function logout() {
-  // localStorage.removeItem("jwt"); 이렇게 해도 되지만 SRP에 위배된다.
   return {
     type: "LOGOUT",
   };
